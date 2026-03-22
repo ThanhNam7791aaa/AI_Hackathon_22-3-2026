@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function HeroSection() {
   return (
     <section className="max-w-7xl mx-auto px-8 mb-40 text-center relative">
@@ -31,12 +33,18 @@ export default function HeroSection() {
 
       {/* CTA Buttons */}
       <div className="flex flex-col md:flex-row items-center justify-center gap-4">
-        <button className="px-8 py-4 bg-gradient-to-r from-[#4f46e5] to-[#4d44e3] text-[#dad7ff] rounded-lg font-bold text-lg shadow-[0_20px_50px_rgba(79,70,229,0.3)] active:scale-95 transition-all hover:shadow-[0_20px_60px_rgba(79,70,229,0.5)]">
+        <Link
+          href="/signup"
+          className="px-8 py-4 bg-gradient-to-r from-[#4f46e5] to-[#4d44e3] text-[#dad7ff] rounded-lg font-bold text-lg shadow-[0_20px_50px_rgba(79,70,229,0.3)] active:scale-95 transition-all hover:shadow-[0_20px_60px_rgba(79,70,229,0.5)]"
+        >
           Start Free Audit
-        </button>
-        <button className="px-8 py-4 bg-[#222a3d] text-[#dae2fd] rounded-lg font-bold text-lg border border-[#464555]/20 hover:bg-[#31394d] transition-all">
+        </Link>
+        <Link
+          href="/dashboard"
+          className="px-8 py-4 bg-[#222a3d] text-[#dae2fd] rounded-lg font-bold text-lg border border-[#464555]/20 hover:bg-[#31394d] transition-all"
+        >
           View Live Demo
-        </button>
+        </Link>
       </div>
     </section>
   );

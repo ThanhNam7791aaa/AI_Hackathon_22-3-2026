@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import Link from "next/link";
+import SharedSidebar from "../components/SharedSidebar";
 
 export const metadata: Metadata = {
   title: "Reports Hub | Synthetic Auditor",
@@ -6,104 +8,7 @@ export const metadata: Metadata = {
     "High-fidelity SDLC audit findings, architectural debt analysis, and compliance snapshots.",
 };
 
-/* ─────────────────────── */
-/* Sidebar                 */
-/* ─────────────────────── */
-const sideNavItems = [
-  { icon: "dashboard", label: "Overview" },
-  { icon: "security", label: "Security Scan" },
-  { icon: "gavel", label: "Compliance" },
-  { icon: "terminal", label: "Code Quality" },
-  { icon: "analytics", label: "Reports", active: true, fill: true },
-];
 
-function Sidebar() {
-  return (
-    <aside className="hidden md:flex flex-col h-screen w-64 left-0 top-0 fixed bg-[#131b2e] shadow-2xl z-40 border-r border-white/5">
-      <div className="px-6 py-8">
-        {/* Brand */}
-        <div className="flex items-center gap-3 mb-10">
-          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#4f46e5] to-[#4d44e3] flex items-center justify-center shadow-lg">
-            <span
-              className="material-symbols-outlined text-[#dad7ff]"
-              style={{ fontVariationSettings: "'FILL' 1" }}
-            >
-              analytics
-            </span>
-          </div>
-          <div>
-            <h2 className="text-lg font-black text-white leading-tight font-headline">
-              System Health
-            </h2>
-            <p className="text-[10px] font-bold text-[#4edea3] tracking-widest uppercase opacity-80">
-              AI Engine Active
-            </p>
-          </div>
-        </div>
-
-        {/* Nav */}
-        <nav className="space-y-1">
-          {sideNavItems.map((item) =>
-            item.active ? (
-              <a
-                key={item.label}
-                href="#"
-                className="text-indigo-400 font-bold border-l-4 border-indigo-500 bg-[#222a3d] pl-4 py-3 flex items-center gap-3 text-sm tracking-wide uppercase"
-              >
-                <span
-                  className="material-symbols-outlined text-xl"
-                  style={
-                    item.fill
-                      ? { fontVariationSettings: "'FILL' 1" }
-                      : undefined
-                  }
-                >
-                  {item.icon}
-                </span>
-                <span>{item.label}</span>
-              </a>
-            ) : (
-              <a
-                key={item.label}
-                href="#"
-                className="text-slate-400 pl-4 py-3 flex items-center gap-3 font-medium text-sm tracking-wide uppercase hover:bg-[#222a3d] hover:text-white transition-all duration-200"
-              >
-                <span className="material-symbols-outlined text-xl">
-                  {item.icon}
-                </span>
-                <span>{item.label}</span>
-              </a>
-            )
-          )}
-        </nav>
-      </div>
-
-      {/* Bottom */}
-      <div className="mt-auto px-6 py-8 border-t border-white/5 space-y-4">
-        <button className="w-full py-3 px-4 bg-gradient-to-r from-[#4f46e5] to-[#4d44e3] text-[#dad7ff] font-bold rounded-xl shadow-lg active:scale-95 transition-transform text-sm tracking-tight uppercase">
-          Trigger New Scan
-        </button>
-        <div className="space-y-1">
-          {[
-            { icon: "settings", label: "Settings" },
-            { icon: "menu_book", label: "Documentation" },
-          ].map((item) => (
-            <a
-              key={item.label}
-              href="#"
-              className="text-slate-400 pl-4 py-2 flex items-center gap-3 text-xs tracking-wide uppercase hover:text-white transition-colors"
-            >
-              <span className="material-symbols-outlined text-lg">
-                {item.icon}
-              </span>
-              <span>{item.label}</span>
-            </a>
-          ))}
-        </div>
-      </div>
-    </aside>
-  );
-}
 
 /* ─────────────────────── */
 /* Top Header              */
@@ -476,51 +381,29 @@ function BottomBento() {
 /* Mobile Bottom Nav       */
 /* ─────────────────────── */
 function MobileBottomNav() {
-  const tabs = [
-    { icon: "dashboard", label: "Home", active: false },
-    { icon: "security", label: "Scan", active: false },
-    { isFab: true },
-    { icon: "analytics", label: "Reports", active: true, fill: true },
-    { icon: "settings", label: "User", active: false },
-  ];
   return (
     <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-[#131b2e] flex justify-around items-center py-4 z-50 shadow-[0_-10px_30px_rgba(0,0,0,0.3)]">
-      {tabs.map((tab, i) =>
-        "isFab" in tab && tab.isFab ? (
-          <div key={i} className="relative -top-6">
-            <button className="w-14 h-14 rounded-full bg-gradient-to-br from-[#4f46e5] to-[#4d44e3] shadow-xl flex items-center justify-center text-white active:scale-90 transition-transform">
-              <span
-                className="material-symbols-outlined text-2xl"
-                style={{ fontVariationSettings: "'FILL' 1" }}
-              >
-                add
-              </span>
-            </button>
-          </div>
-        ) : (
-          <a
-            key={i}
-            href="#"
-            className={`flex flex-col items-center gap-1 ${
-              tab.active ? "text-indigo-400" : "text-slate-400"
-            }`}
-          >
-            <span
-              className="material-symbols-outlined"
-              style={
-                tab.fill && tab.active
-                  ? { fontVariationSettings: "'FILL' 1" }
-                  : undefined
-              }
-            >
-              {tab.icon}
-            </span>
-            <span className="text-[10px] uppercase font-bold tracking-tighter">
-              {tab.label}
-            </span>
-          </a>
-        )
-      )}
+      <Link href="/dashboard" className="flex flex-col items-center gap-1 text-slate-400">
+        <span className="material-symbols-outlined">dashboard</span>
+        <span className="text-[10px] uppercase font-bold tracking-tighter">Home</span>
+      </Link>
+      <Link href="/security-scan" className="flex flex-col items-center gap-1 text-slate-400">
+        <span className="material-symbols-outlined">security</span>
+        <span className="text-[10px] uppercase font-bold tracking-tighter">Scan</span>
+      </Link>
+      <Link href="/security-scan" className="relative -top-6">
+        <span className="w-14 h-14 rounded-full bg-gradient-to-br from-[#4f46e5] to-[#4d44e3] shadow-xl flex items-center justify-center text-white block">
+          <span className="material-symbols-outlined text-2xl" style={{ fontVariationSettings: "'FILL' 1" }}>add</span>
+        </span>
+      </Link>
+      <Link href="/reports" className="flex flex-col items-center gap-1 text-indigo-400">
+        <span className="material-symbols-outlined" style={{ fontVariationSettings: "'FILL' 1" }}>analytics</span>
+        <span className="text-[10px] uppercase font-bold tracking-tighter">Reports</span>
+      </Link>
+      <Link href="/settings" className="flex flex-col items-center gap-1 text-slate-400">
+        <span className="material-symbols-outlined">settings</span>
+        <span className="text-[10px] uppercase font-bold tracking-tighter">User</span>
+      </Link>
     </nav>
   );
 }
@@ -532,7 +415,7 @@ export default function ReportsPage() {
   return (
     <div className="bg-[#0b1326] text-[#dae2fd] min-h-screen selection:bg-[#c3c0ff]/30">
       {/* Sidebar */}
-      <Sidebar />
+      <SharedSidebar activeLabel="Reports" />
 
       {/* Main */}
       <main className="md:ml-64 min-h-screen">

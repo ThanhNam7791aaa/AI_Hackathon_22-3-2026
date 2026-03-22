@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import Link from "next/link";
+import SharedSidebar from "../components/SharedSidebar";
 
 export const metadata: Metadata = {
   title: "Security Scan | Synthetic Auditor",
@@ -6,100 +8,7 @@ export const metadata: Metadata = {
     "Real-time deep analysis of your SDLC pipeline. Detecting zero-days, logic flaws, and credential leaks.",
 };
 
-/* ─────────────────────── */
-/* Sidebar                 */
-/* ─────────────────────── */
-const sideNavItems = [
-  { icon: "dashboard", label: "Overview", active: false },
-  { icon: "security", label: "Security Scan", active: true },
-  { icon: "gavel", label: "Compliance", active: false },
-  { icon: "terminal", label: "Code Quality", active: false },
-  { icon: "analytics", label: "Reports", active: false },
-];
 
-function Sidebar() {
-  return (
-    <aside className="hidden md:flex flex-col h-screen w-64 left-0 top-0 fixed bg-[#131b2e] shadow-2xl z-50 border-r border-white/5">
-      <div className="px-6 py-8">
-        {/* Brand */}
-        <div className="flex items-center gap-3 mb-10">
-          <div className="w-10 h-10 bg-[#4f46e5] rounded-xl flex items-center justify-center shadow-lg">
-            <span
-              className="material-symbols-outlined text-white"
-              style={{ fontVariationSettings: "'FILL' 1" }}
-            >
-              security
-            </span>
-          </div>
-          <div>
-            <h1 className="text-lg font-black text-white leading-tight">
-              System Health
-            </h1>
-            <p className="text-[10px] text-[#4edea3] font-bold tracking-widest uppercase">
-              AI Engine Active
-            </p>
-          </div>
-        </div>
-
-        {/* Nav */}
-        <nav className="space-y-1">
-          {sideNavItems.map((item) =>
-            item.active ? (
-              <div
-                key={item.label}
-                className="text-indigo-400 font-bold border-l-4 border-indigo-500 bg-[#222a3d] pl-4 py-3 flex items-center gap-3 cursor-pointer"
-              >
-                <span className="material-symbols-outlined text-xl">
-                  {item.icon}
-                </span>
-                <span className="font-headline text-sm font-medium tracking-wide uppercase">
-                  {item.label}
-                </span>
-              </div>
-            ) : (
-              <div
-                key={item.label}
-                className="text-slate-400 pl-4 py-3 flex items-center gap-3 hover:bg-[#222a3d] hover:text-white transition-all duration-200 cursor-pointer"
-              >
-                <span className="material-symbols-outlined text-xl">
-                  {item.icon}
-                </span>
-                <span className="font-headline text-sm font-medium tracking-wide uppercase">
-                  {item.label}
-                </span>
-              </div>
-            )
-          )}
-        </nav>
-      </div>
-
-      {/* Bottom */}
-      <div className="mt-auto px-6 py-8 border-t border-white/5 space-y-4">
-        <button className="w-full bg-[#4f46e5] hover:bg-[#4d44e3] text-white font-bold py-3 rounded-xl transition-all shadow-lg active:scale-95 duration-150 text-xs tracking-widest uppercase">
-          Trigger New Scan
-        </button>
-        <div className="space-y-1">
-          {[
-            { icon: "settings", label: "Settings" },
-            { icon: "menu_book", label: "Documentation" },
-          ].map((item) => (
-            <div
-              key={item.label}
-              className="text-slate-400 pl-4 py-2 flex items-center gap-3 hover:text-white transition-all cursor-pointer"
-            >
-              <span className="material-symbols-outlined text-lg">
-                {item.icon}
-              </span>
-              <span className="font-headline text-[11px] font-medium tracking-wide uppercase">
-                {item.label}
-              </span>
-            </div>
-          ))}
-        </div>
-      </div>
-    </aside>
-  );
-}
 
 /* ─────────────────────── */
 /* Top Header              */
@@ -440,48 +349,27 @@ function AutomateBanner() {
 /* Mobile Bottom Nav       */
 /* ─────────────────────── */
 function MobileBottomNav() {
-  const items = [
-    { icon: "dashboard", label: "Overview", active: false },
-    { icon: "security", label: "Scan", active: true, fill: true },
-    { icon: "add", label: "", fab: true },
-    { icon: "terminal", label: "Code", active: false },
-    { icon: "analytics", label: "Reports", active: false },
-  ];
   return (
     <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-[#0b1326] z-50 flex items-center justify-around py-3 px-4 shadow-[0_-10px_30px_rgba(0,0,0,0.5)]">
-      {items.map((item, i) =>
-        item.fab ? (
-          <div
-            key={i}
-            className="bg-[#4f46e5] p-3 rounded-full -mt-10 shadow-xl border-4 border-[#0b1326] text-white"
-          >
-            <span className="material-symbols-outlined">add</span>
-          </div>
-        ) : (
-          <div
-            key={i}
-            className={`flex flex-col items-center p-2 ${
-              item.active
-                ? "text-indigo-400 border-t-2 border-indigo-400"
-                : "text-slate-400"
-            }`}
-          >
-            <span
-              className="material-symbols-outlined"
-              style={
-                item.fill && item.active
-                  ? { fontVariationSettings: "'FILL' 1" }
-                  : undefined
-              }
-            >
-              {item.icon}
-            </span>
-            <span className="text-[9px] font-bold uppercase mt-1">
-              {item.label}
-            </span>
-          </div>
-        )
-      )}
+      <Link href="/dashboard" className="flex flex-col items-center p-2 text-slate-400">
+        <span className="material-symbols-outlined">dashboard</span>
+        <span className="text-[9px] font-bold uppercase mt-1">Overview</span>
+      </Link>
+      <Link href="/security-scan" className="flex flex-col items-center p-2 text-indigo-400 border-t-2 border-indigo-400">
+        <span className="material-symbols-outlined" style={{ fontVariationSettings: "'FILL' 1" }}>security</span>
+        <span className="text-[9px] font-bold uppercase mt-1">Scan</span>
+      </Link>
+      <Link href="/security-scan" className="bg-[#4f46e5] p-3 rounded-full -mt-10 shadow-xl border-4 border-[#0b1326] text-white">
+        <span className="material-symbols-outlined">add</span>
+      </Link>
+      <Link href="/dashboard" className="flex flex-col items-center p-2 text-slate-400">
+        <span className="material-symbols-outlined">terminal</span>
+        <span className="text-[9px] font-bold uppercase mt-1">Code</span>
+      </Link>
+      <Link href="/reports" className="flex flex-col items-center p-2 text-slate-400">
+        <span className="material-symbols-outlined">analytics</span>
+        <span className="text-[9px] font-bold uppercase mt-1">Reports</span>
+      </Link>
     </nav>
   );
 }
@@ -493,7 +381,7 @@ export default function SecurityScanPage() {
   return (
     <div className="bg-[#0b1326] text-[#dae2fd] min-h-screen selection:bg-[#c3c0ff]/30 selection:text-[#c3c0ff]">
       {/* Sidebar */}
-      <Sidebar />
+      <SharedSidebar activeLabel="Security Scan" />
 
       {/* Main Canvas */}
       <main className="md:ml-64 min-h-screen">

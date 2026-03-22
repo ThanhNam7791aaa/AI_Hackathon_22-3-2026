@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import DashboardHeader from "../dashboard/components/DashboardHeader";
+import SharedSidebar from "../components/SharedSidebar";
 
 export const metadata: Metadata = {
   title: "Settings | AI SDLC Auditor",
@@ -7,69 +9,7 @@ export const metadata: Metadata = {
     "Manage AI auditor configurations, provider credentials, and security parameters.",
 };
 
-/* ─────────────────────── */
-/* Sidebar                 */
-/* ─────────────────────── */
-const sideNavItems = [
-  { icon: "dashboard", label: "Overview" },
-  { icon: "security", label: "Security Scan" },
-  { icon: "gavel", label: "Compliance" },
-  { icon: "terminal", label: "Code Quality" },
-  { icon: "description", label: "Reports" },
-];
 
-function Sidebar() {
-  return (
-    <aside className="hidden md:flex flex-col h-screen w-64 left-0 top-0 fixed bg-[#131b2e] border-r border-[#464555]/20 pt-24 font-headline font-medium shadow-[0_20px_50px_rgba(0,0,0,0.3)] z-40">
-      {/* System Status */}
-      <div className="px-6 mb-8">
-        <div className="flex items-center gap-3 mb-1">
-          <span className="material-symbols-outlined text-[#4f46e5]">
-            robot_2
-          </span>
-          <span className="text-[#4f46e5] text-lg font-black">
-            System Status
-          </span>
-        </div>
-        <p className="text-[0.7rem] uppercase tracking-widest text-[#4edea3] opacity-80 flex items-center gap-1">
-          <span className="w-1.5 h-1.5 rounded-full bg-[#4edea3]" />
-          LLM Connected
-        </p>
-      </div>
-
-      {/* Nav */}
-      <nav className="flex-1 px-4 space-y-2">
-        {sideNavItems.map((item) => (
-          <a
-            key={item.label}
-            href="#"
-            className="flex items-center gap-3 text-slate-400 hover:text-slate-200 px-4 py-3 transition-all duration-300 hover:bg-[#222a3d] rounded-lg"
-          >
-            <span className="material-symbols-outlined">{item.icon}</span>
-            <span>{item.label}</span>
-          </a>
-        ))}
-      </nav>
-
-      {/* Bottom links */}
-      <div className="p-6 border-t border-[#464555]/20 space-y-4">
-        {[
-          { icon: "help", label: "Docs" },
-          { icon: "contact_support", label: "Support" },
-        ].map((item) => (
-          <a
-            key={item.label}
-            href="#"
-            className="flex items-center gap-3 text-slate-400 hover:text-slate-200 transition-colors"
-          >
-            <span className="material-symbols-outlined">{item.icon}</span>
-            <span>{item.label}</span>
-          </a>
-        ))}
-      </div>
-    </aside>
-  );
-}
 
 /* ──────────────────────────── */
 /* Toggle Switch component      */
@@ -339,34 +279,24 @@ function AccountUsageCard() {
 /* Mobile Footer Nav       */
 /* ─────────────────────── */
 function MobileFooterNav() {
-  const tabs = [
-    { icon: "dashboard", label: "Overview", active: false },
-    { icon: "security", label: "Scans", active: false },
-    { icon: "settings", label: "Settings", active: true, fill: true },
-    { icon: "account_circle", label: "Account", active: false },
-  ];
   return (
     <footer className="md:hidden fixed bottom-0 left-0 w-full bg-[#131b2e] flex justify-around items-center py-4 border-t border-[#464555]/20 z-50">
-      {tabs.map((tab) => (
-        <div
-          key={tab.label}
-          className={`flex flex-col items-center ${
-            tab.active ? "text-[#4f46e5]" : "text-slate-400"
-          }`}
-        >
-          <span
-            className="material-symbols-outlined"
-            style={
-              tab.fill && tab.active
-                ? { fontVariationSettings: "'FILL' 1" }
-                : undefined
-            }
-          >
-            {tab.icon}
-          </span>
-          <span className="text-[10px]">{tab.label}</span>
-        </div>
-      ))}
+      <Link href="/dashboard" className="flex flex-col items-center text-slate-400">
+        <span className="material-symbols-outlined">dashboard</span>
+        <span className="text-[10px]">Overview</span>
+      </Link>
+      <Link href="/security-scan" className="flex flex-col items-center text-slate-400">
+        <span className="material-symbols-outlined">security</span>
+        <span className="text-[10px]">Scans</span>
+      </Link>
+      <Link href="/settings" className="flex flex-col items-center text-[#4f46e5]">
+        <span className="material-symbols-outlined" style={{ fontVariationSettings: "'FILL' 1" }}>settings</span>
+        <span className="text-[10px]">Settings</span>
+      </Link>
+      <Link href="/dashboard" className="flex flex-col items-center text-slate-400">
+        <span className="material-symbols-outlined">account_circle</span>
+        <span className="text-[10px]">Account</span>
+      </Link>
     </footer>
   );
 }
@@ -381,7 +311,7 @@ export default function SettingsPage() {
       <DashboardHeader activeNav="Settings" />
 
       {/* Sidebar */}
-      <Sidebar />
+      <SharedSidebar activeLabel="" />
 
       {/* Main Content */}
       <main className="md:ml-64 pt-6 px-8 pb-12 min-h-screen">

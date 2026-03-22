@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import Link from "next/link";
+import SharedSidebar from "../components/SharedSidebar";
 
 export const metadata: Metadata = {
   title: "Compliance Dashboard | Synthetic Auditor",
@@ -6,96 +8,7 @@ export const metadata: Metadata = {
     "Real-time mapping of your codebase against global security frameworks.",
 };
 
-/* ─────────────────────── */
-/* Sidebar                 */
-/* ─────────────────────── */
-const sideNavItems = [
-  { icon: "dashboard", label: "Overview" },
-  { icon: "security", label: "Security Scan" },
-  { icon: "gavel", label: "Compliance", active: true },
-  { icon: "terminal", label: "Code Quality" },
-  { icon: "analytics", label: "Reports" },
-];
 
-function Sidebar() {
-  return (
-    <aside className="hidden md:flex flex-col h-screen w-64 left-0 top-0 fixed bg-[#131b2e] shadow-2xl z-40 border-r border-white/5">
-      <div className="px-6 py-8">
-        {/* Brand */}
-        <div className="flex items-center gap-3 mb-10">
-          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#4f46e5] to-[#4d44e3] flex items-center justify-center">
-            <span className="material-symbols-outlined text-white">
-              security
-            </span>
-          </div>
-          <div>
-            <h1 className="text-lg font-black text-white font-headline leading-tight">
-              System Health
-            </h1>
-            <p className="text-[10px] text-[#4edea3] font-bold tracking-widest uppercase">
-              AI Engine Active
-            </p>
-          </div>
-        </div>
-
-        {/* Nav */}
-        <nav className="space-y-1">
-          {sideNavItems.map((item) =>
-            item.active ? (
-              <a
-                key={item.label}
-                href="#"
-                className="text-indigo-400 font-bold border-l-4 border-indigo-500 bg-[#222a3d] pl-4 py-3 flex items-center gap-3 cursor-pointer"
-              >
-                <span className="material-symbols-outlined">{item.icon}</span>
-                <span className="font-headline text-sm font-medium tracking-wide uppercase">
-                  {item.label}
-                </span>
-              </a>
-            ) : (
-              <a
-                key={item.label}
-                href="#"
-                className="text-slate-400 pl-4 py-3 flex items-center gap-3 hover:bg-[#222a3d] hover:text-white transition-all duration-200 cursor-pointer"
-              >
-                <span className="material-symbols-outlined">{item.icon}</span>
-                <span className="font-headline text-sm font-medium tracking-wide uppercase">
-                  {item.label}
-                </span>
-              </a>
-            )
-          )}
-        </nav>
-      </div>
-
-      {/* Bottom */}
-      <div className="mt-auto px-6 py-8 border-t border-white/5 space-y-4">
-        <button className="w-full py-3 bg-gradient-to-r from-[#4f46e5] to-[#4d44e3] text-white rounded-xl font-headline font-bold text-sm shadow-lg shadow-indigo-500/20 active:scale-95 transition-transform">
-          Trigger New Scan
-        </button>
-        <div className="space-y-1">
-          {[
-            { icon: "settings", label: "Settings" },
-            { icon: "menu_book", label: "Documentation" },
-          ].map((item) => (
-            <a
-              key={item.label}
-              href="#"
-              className="text-slate-400 pl-4 py-2 flex items-center gap-3 hover:text-white transition-colors"
-            >
-              <span className="material-symbols-outlined text-sm">
-                {item.icon}
-              </span>
-              <span className="font-headline text-[11px] font-medium tracking-wider uppercase">
-                {item.label}
-              </span>
-            </a>
-          ))}
-        </div>
-      </div>
-    </aside>
-  );
-}
 
 /* ─────────────────────── */
 /* Top Header              */
@@ -531,35 +444,24 @@ function AIInsightSection() {
 /* Mobile Bottom Nav       */
 /* ─────────────────────── */
 function MobileBottomNav() {
-  const tabs = [
-    { icon: "dashboard", label: "Home", active: false },
-    { icon: "security", label: "Scan", active: false },
-    { icon: "gavel", label: "Compliance", active: true, fill: true },
-    { icon: "analytics", label: "Reports", active: false },
-  ];
   return (
     <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-[#171f33] border-t border-white/5 px-6 py-3 flex justify-around items-center z-50">
-      {tabs.map((tab) => (
-        <a
-          key={tab.label}
-          href="#"
-          className={`flex flex-col items-center gap-1 ${
-            tab.active ? "text-[#c3c0ff]" : "text-slate-400"
-          }`}
-        >
-          <span
-            className="material-symbols-outlined"
-            style={
-              tab.fill && tab.active
-                ? { fontVariationSettings: "'FILL' 1" }
-                : undefined
-            }
-          >
-            {tab.icon}
-          </span>
-          <span className="text-[10px] font-bold uppercase">{tab.label}</span>
-        </a>
-      ))}
+      <Link href="/dashboard" className="flex flex-col items-center gap-1 text-slate-400">
+        <span className="material-symbols-outlined">dashboard</span>
+        <span className="text-[10px] font-bold uppercase">Home</span>
+      </Link>
+      <Link href="/security-scan" className="flex flex-col items-center gap-1 text-slate-400">
+        <span className="material-symbols-outlined">security</span>
+        <span className="text-[10px] font-bold uppercase">Scan</span>
+      </Link>
+      <Link href="/compliance" className="flex flex-col items-center gap-1 text-[#c3c0ff]">
+        <span className="material-symbols-outlined" style={{ fontVariationSettings: "'FILL' 1" }}>gavel</span>
+        <span className="text-[10px] font-bold uppercase">Compliance</span>
+      </Link>
+      <Link href="/reports" className="flex flex-col items-center gap-1 text-slate-400">
+        <span className="material-symbols-outlined">analytics</span>
+        <span className="text-[10px] font-bold uppercase">Reports</span>
+      </Link>
     </nav>
   );
 }
@@ -571,7 +473,7 @@ export default function CompliancePage() {
   return (
     <div className="bg-[#0b1326] text-[#dae2fd] min-h-screen selection:bg-[#4f46e5] selection:text-[#dad7ff]">
       {/* Sidebar */}
-      <Sidebar />
+      <SharedSidebar activeLabel="Compliance" />
 
       {/* Main */}
       <main className="md:ml-64 min-h-screen">
