@@ -14,7 +14,15 @@ export default function SignUpPage() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col md:flex-row bg-[#0b1326] text-[#dae2fd] selection:bg-[#4f46e5] selection:text-[#dad7ff]">
+    <div className="min-h-screen flex flex-col md:flex-row bg-[#0b1326] text-[#dae2fd] selection:bg-[#4f46e5] selection:text-[#dad7ff] relative">
+      {/* Back to Home Button */}
+      <Link
+        href="/"
+        className="absolute top-6 left-6 md:top-8 md:left-8 z-50 flex items-center gap-2 text-[#c7c4d8] hover:text-[#dae2fd] transition-colors group bg-[#131b2e]/50 backdrop-blur-md py-2 px-4 rounded-full border border-white/5 shadow-lg shadow-black/20"
+      >
+        <span className="material-symbols-outlined text-sm group-hover:-translate-x-1 transition-transform">arrow_back</span>
+        <span className="text-sm font-semibold tracking-wide">Home</span>
+      </Link>
 
       {/* ── Left Column: Branding & Value Prop ── */}
       <section className="hidden md:flex flex-col justify-between w-1/3 p-12 bg-[#060e20] relative overflow-hidden">
